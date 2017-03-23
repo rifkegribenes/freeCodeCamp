@@ -5,7 +5,7 @@ var url = "https://api.twitch.tv/kraken/streams/freecodecamp?callback=?client_id
 var users = ["comster404", "ESL_SC2", "brunofin", "twitchpresents"];
 
 function display(logo, name, status) {
-    $("#user-info").prepend("<div class = 'row'>" + "<div class='col-md-4>" + "<img src='" + logo + "'>" + "</div>" + "<div class='col-md-4>" + name + "</div>" + "<div class='col-md-4>" + status + "</div></div>");
+    $("#user-info").prepend("<div class = 'row'>" + "<div class='col-xs-4>" + "<img src='" + logo + "'>" + "</div>" + "<div class='col-xs-4>" + name + "</div>" + "<div class='col-xs-4>" + status + "</div></div>");
   }
 
 var jqxhr = $.getJSON('https://wind-bow.gomix.me/twitch-api/users/freecodecamp/follows/channels?callback=?', function(data) {

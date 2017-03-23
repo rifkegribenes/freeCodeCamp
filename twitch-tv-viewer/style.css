@@ -31,6 +31,7 @@ h1, h2, #temp {
   font-family: 'Patua One', Sans-serif;
   text-transform: capitalize;
   text-align: center;
+    color: #fff;
 }
 
 .streams-cont {
