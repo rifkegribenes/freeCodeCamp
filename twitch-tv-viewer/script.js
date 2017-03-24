@@ -1,129 +1,91 @@
 /*jshint esversion: 6 */
 /*jshint loopfunc: true */
 $(document).ready(function() {
-var url = "https://api.twitch.tv/kraken/streams/freecodecamp?callback=?client_id=2qtn5ox1yyjj7332a1x56ksda429rx";
-var users = ["comster404", "ESL_SC2", "brunofin", "twitchpresents"];
 
-function display(logo, name, status) {
-    $("#user-info").prepend("<div class = 'row'>" + "<div class='col-xs-4>" + "<img src='" + logo + "'>" + "</div>" + "<div class='col-xs-4>" + name + "</div>" + "<div class='col-xs-4>" + status + "</div></div>");
+  var users = ["comster404", "ESL_SC2", "brunofin", "twitchpresents"];
+  var logo, status, name, url, description, color;
+
+  function display(logo, status, name, url, description, color) {
+    $("#user-info").prepend('<div class="card trow ' + color +'" id=' + name + '> <a class="image" href=' + url + ' target="_blank"> <img class="sm" src=' + logo + ' > </a> <div class="content"> <div class="header">' + name + '</div> <div class="description">' + description + '</div> <div class="status">' + status + '</div></div>  </div>');
+         //     $("#"+name).addClass(color);
   }
 
-var jqxhr = $.getJSON('https://wind-bow.gomix.me/twitch-api/users/freecodecamp/follows/channels?callback=?', function(data) {
-  for (let i=0; i<data.follows.length; i++) {
-    var displayName = data.follows[i].channel.display_name;
-    users.push(displayName);
-  }
-  console.log(users);
-})
-
-.done(function() {
-var logo;
-var status;
-var name;
-$.when.apply($, $.map(users, function(_user) {
-        return $.ajax({
+  function getChannel(name, status, color) {
+    $.ajax({
           type: "GET",
-          url: "https://api.twitch.tv/kraken/streams/" + _user,
+          url: "https://api.twitch.tv/kraken/channels/" + name,
           headers: {
             'Client-ID': '2qtn5ox1yyjj7332a1x56ksda429rx'
           },
-          success: function(data3) {
-            if (data3.error) {
-              logo = "placeholder for file not found";
-              name = data3.message;
-              status = data3.error;
-              display(logo, name, status);
+          success: function(y) {
+            url = y.url;
+            if (y.game) {
+              description = y.game;
+            } else {
+              description = '';
             }
-
-            if (data3.stream === null) {
-              $.ajax({
-                type: "GET",
-                dataType:"json",
-                url: data3._links.channel,
-                headers: {
-                  'Client-ID': '2qtn5ox1yyjj7332a1x56ksda429rx'
-                },
-                success: function(data4) {
-                  if (data4.error) {
-                    status = "OFFLINE";
-                    logo = data4.logo;
-                    name = data4.display_name;
-                    if (logo === null) {
-                      logo = "placeholder for no logo";
-                    }
-                    display(logo, name, status);
-                  }
-                }
-
-              });
+            if (y.logo) {
+              logo = y.logo;
+            } else {
+              logo = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/GenericProfile.png';
             }
+            display(logo, status, name, url, description, color);
+          },
+          error: function() {
+            logo = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/GenericProfile.png';
+            name = y.message;
+            status = y.error;
+            url = y.url;
+            display(logo, status, name);
           }
         });
-      })); // when.apply 1
+  }
 
-$.when.apply($, $.map(users, function(_user) {
-        return $.ajax({
+  var jqxhr = $.getJSON('https://wind-bow.gomix.me/twitch-api/users/freecodecamp/follows/channels?callback=?', function(data) {
+    for (let i = 0; i < data.follows.length; i++) {
+      var displayName = data.follows[i].channel.display_name;
+      users.push(displayName);
+    }
+  })
+
+  .done(function() {
+    console.log(users);
+      $.when.apply($, $.map(users, function(_user) {
+        $.ajax({
           type: "GET",
-          dataType:"json",
           url: "https://api.twitch.tv/kraken/streams/" + _user,
           headers: {
             'Client-ID': '2qtn5ox1yyjj7332a1x56ksda429rx'
           },
-          success: function(data5) {
-            console.log(data5);
-            if (data5.error) {
-              logo = data4.stream.channel.logo;
-              status = data4.stream.channel.status;
-              name = data4.stream.channel.display_name;
-              display(logo, name, status);
-            } // if
-          } // success
-        }); //ajax
-})); // when.apply 2
-
-})
+          success: function(x) {
+            name = _user;
+            if (x.stream === null) {
+              status = "Offline";
+              color = "offline";
+              getChannel(name, status, color);
+            } else {
+              status = x.stream.channel.status;
+              color = "online";
+              getChannel(name, status, color);
+            }
+          },
+          error: function() {
+            console.log(name + " doesn't exist");
+            status = "Channel doesn't exist";
+            color = "notfound";
+            logo = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/GenericProfile.png';
+            url = "#";
+            description = "";
+            display(logo, status, name, url, description, color);
+          }
+        });
+      })); // when.apply
+    }) //done
 
   .fail(function() {
-    console.log( "error" );
-  })
-.always(function() {
-    console.log( "complete" );
-  });
+      console.log("error");
+    })
+    .always(function() {
+    });
 
-
-
-
-});
-
-
-  /*
-    $.getJSON(url2).done(function(data3){
-    var logo;
-      var status;
-      var name;
-      if (data3.stream===null) {
-        logo = "placeholder";
-        name = data3.message;
-        status = data3.error;
-        $("#user-info").prepend("<div class='row'><div class='col-md-4'><img src='"+logo+"'></div><div class='col-md-4'>User "+users[i]+" does not exist.</div><div class='col-md-4'>"+status+"</div></div>");
-      }
-});
-  }
-});
-
-
-$.ajax({
- type: 'GET',
- url: 'https://api.twitch.tv/kraken/channels/twitch',
- headers: {
-   'Client-ID': '2qtn5ox1yyjj7332a1x56ksda429rx'
- },
- success: function(data2) {
- }
-});
-
-// twitch client id: 2qtn5ox1yyjj7332a1x56ksda429rx
-
-});
-
-*/
+}); //doc ready
