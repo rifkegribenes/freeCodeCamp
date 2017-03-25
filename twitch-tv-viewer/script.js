@@ -6,7 +6,7 @@ $(document).ready(function() {
   var logo, status, name, url, color, activity, z, data;
 
   function display(logo, status, name, url, color) {
-    $("#user-info").prepend('<div class="card trow ' + color + '" id=' + name + '> <a class="image" href=' + url + ' target="_blank"> <img class="sm" src=' + logo + ' > </a> <div class="content"> <div class="header">' + name + '</div> <div class="status">' + status + '</div></div>  </div>');
+    $("#user-info").prepend('<div class="card trow ' + color + '" id=' + name + '> <img class="sm" src=' + logo + ' >  <div class="content"> <a href=' + url + ' target="_blank"> <h3 class="header">' + name + '</h3> </a><i class="fa fa-circle" aria-hidden="true"></i><span class="status">' + status + '</span><button class="close-stream"><i class="fa fa-times xx"></i></button></div>  </div>');
   }
 
   function setVars(data, dstream, name, activity) {
@@ -14,7 +14,7 @@ $(document).ready(function() {
               logo = data.logo;
             } else
             {
-              logo = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/GenericProfile.png';
+              logo = 'https://pbs.twimg.com/profile_images/509073338191183872/fYdty6yd.png';
             }
     if (activity === null) {
       status = "Offline";
@@ -31,7 +31,7 @@ $(document).ready(function() {
   var jqxhr = $.getJSON('https://wind-bow.gomix.me/twitch-api/users/freecodecamp/follows/channels?callback=?', function(data) {
     for (let i = 0; i < data.follows.length; i++) {
       var displayName = data.follows[i].channel.display_name;
-      users.push(displayName);
+      users.unshift(displayName);
     }
   })
 
@@ -41,8 +41,8 @@ $(document).ready(function() {
         $.getJSON('https://wind-bow.gomix.me/twitch-api/channels/' + name + '?callback=?', function(data) {
           if (data.error) {
             logo = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/GenericProfile.png';
-            name = data.message;
-            status = "ERROR: " + data.error;
+            name = "Error: " + data.error;
+            status = data.message;
             url = "#";
             color = "notfound";
             display(logo, status, name, url, color);
