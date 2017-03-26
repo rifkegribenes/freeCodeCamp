@@ -35,7 +35,7 @@ $(document).ready(function() {
       color = "online";
     }
     logo = logo;
-    url = data._links.channel;
+    url = dstream._links.channel;
     display(logo, status, name, url, color);
   } //setVars
 
@@ -66,8 +66,6 @@ $(document).ready(function() {
   });
 
    $('.all').click(function() {
-      console.log("all: " + users);
-      console.log("removed: " + removed);
     users.forEach(function(name) {
       $('#'+name).show();
     $('li').removeClass('active');
@@ -78,8 +76,6 @@ $(document).ready(function() {
   });
 
     $('.on').click(function() {
-      console.log("on: " + users);
-      console.log("removed: " + removed);
     users.forEach(function(name) {
       if (removed.indexOf(name) > -1) {
       $('#'+name).show();
@@ -98,8 +94,6 @@ $(document).ready(function() {
   });
 
     $('.off').click(function() {
-      console.log("off: " + users);
-      console.log("removed: " + removed);
     users.forEach(function(name) {
       if (removed.indexOf(name) > -1) {
       $('#'+name).show();
