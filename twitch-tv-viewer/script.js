@@ -35,7 +35,7 @@ $(document).ready(function() {
       color = "online";
     }
     logo = logo;
-    url = dstream._links.channel;
+    url = "https://www.twitch.tv/"+name;
     display(logo, status, name, url, color);
   } //setVars
 
