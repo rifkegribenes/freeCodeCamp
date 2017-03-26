@@ -10,8 +10,8 @@ body {
 
 }
 .wrap {
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
   padding: 30px;
   margin: auto;
   border-radius: 5px;
@@ -31,9 +31,16 @@ h1 {
 }
 
 .streams-cont {
+margin-top: 0;
+  padding-top: 10px;
+border: 1px solid #ddd;
+  border-top: transparent;
 
 }
-.go {}
+.formwrap {
+  margin-bottom: 20px;
+      padding: 0 6px 0 16px;
+}
 .formrow {padding-top: 20px;}
 .sm {
 position: absolute;
@@ -46,30 +53,34 @@ position: absolute;
     vertical-align: middle;
 }
 .trow {
-    margin: 10px 0;
+    margin: 10px;
     padding: 10px 10px 5px 90px;
     position: relative;
   color: black;
+  border: 1px solid #ddd;
 }
 
-.close-stream {
+.close-x {
   position: absolute;
+  z-index: 999;
   top: 10px;
   right: 10px;
   margin: 3px 3px;
   width: 22px;
   height: 20px;
-  background-color: #666;
-  color: #fff;
+  background-color: #fff;
+  color: #c7c8c9;
   border-radius: 50%;
   border: none;
-      padding: 0 0;
-    font-size: .75em;
+/*  border: 1px solid #c7c8c9; */
+      padding: 0 0 0 5px;
+  font-size: 1.5em;
 }
 
-.close-stream:hover{
-background-color: #bbb;
+.close-x:hover{
+color: #777 !important;
 }
+
 .offline i {
   color: #aaa;
 }
@@ -83,13 +94,22 @@ background-color: #bbb;
 }
 
 .xx {
-  color: #fff !important;
+  color: #c7c8c9 !important;
+  line-height: .75em;
+  position: absolute;
+  top: 2px;
+  right: 3px;
+}
+
+.xx:hover {
+    color: #777 !important;
 }
 
 .header {
   margin-top: 0;
   padding-top: 0;
   font-size: 1.25em;
+  width: 90%;
 }
 
 .status {
