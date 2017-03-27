@@ -115,3 +115,13 @@ color: #777 !important;
 .status {
   padding-left: 10px;
 }
+
+@media (max-width: 599px) {
+.wrap {
+  padding: 0;
+}
+
+.outerwrap {
+  padding: 20px;
+}
+}
