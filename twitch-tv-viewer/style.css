@@ -1,5 +1,25 @@
-body {
+.nb {
+  width: 30px;
+  height: auto;
+  margin: 10px;
+  float: left;
+}
 
+.hd {
+  color: #fff;
+  font-size: 1.75em;
+  font-weight: 200;
+  padding: 15px;
+  margin-top: 0;
+  margin-left: 0;
+}
+
+.purple {
+  background-color: #6445a2;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  margin-bottom: 0;
 }
 .sub {
   padding-left: 0px;
@@ -12,7 +32,7 @@ body {
 .wrap {
   width: 100%;
   max-width: 600px;
-  padding: 30px;
+  padding: 0 30px;
   margin: auto;
   border-radius: 5px;
 }
@@ -23,12 +43,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 0 30px;
 }
 
 h1 {
   text-align: center;
 }
+
 
 .streams-cont {
 margin-top: 0;
@@ -118,10 +139,10 @@ color: #777 !important;
 
 @media (max-width: 599px) {
 .wrap {
-  padding: 0;
+  padding: 0 0;
 }
 
 .outerwrap {
-  padding: 20px;
+  padding: 0 20px;
 }
 }
